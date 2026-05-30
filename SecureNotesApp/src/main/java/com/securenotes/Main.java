@@ -42,14 +42,15 @@ public class Main {
         });
        encryptedSaveButton.addActionListener(e -> {
     	   String note = noteArea.getText();
-    	   String encryptedNote = Base64.getEncoder().encodeToString(note.getBytes());
+
     	   try {
-    		   FileWriter writer = new FileWriter("encrypted_notes.txt", true);
-    		   writer.write(encryptedNote + "\n");
+    	       String encryptedNoteString = EncryptionUtil.encrypt(note);
+    	   FileWriter writer = new FileWriter("encrypted_notes.txt", true);
+    		   writer.write(encryptedNoteString + "\n");
     		   writer.close();
     		   
     		   JOptionPane.showMessageDialog(null, "Encrypted note saved.");
-    	   }catch (IOException ex) {
+    	   }catch (Exception ex) {
     		   JOptionPane.showMessageDialog(null, "Error while saving encrypted note.");
     	   }
        });
